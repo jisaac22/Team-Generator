@@ -1,0 +1,23 @@
+{
+  "name": "team-generator",
+  "version": "1.0.0",
+  "description": "This project is made with node with installation of inquirer and jest. User will be giveb a set of questions depending on which team member was selected. They will need to give role of employee, employees name, email, id number, and/or github, school or office number. Once completed a HTML with given information will be created and once accessed website will be displayed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jisaac22/Team-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jisaac22/Team-Generator/issues"
+  },
+  "homepage": "https://github.com/jisaac22/Team-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.1",
+    "jest": "^27.0.6"
+  }
+}

@@ -1,7 +1,7 @@
 // employee class for questions
 
 class Employee{
-    constructor (id, name, email){
+    constructor (name, id, email){
         this.id = id;
         this.name = name;
         this.email = email;
