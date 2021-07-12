@@ -1,0 +1,39 @@
+.header {
+    background-color: black;
+    height: 150px;
+
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+.members{
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.card {
+    width: 10%;
+    border: solid black 2px;
+}
+
+.title{
+    border-top: black 2px solid;
+    border-bottom: black 2px solid;
+    
+}
+
+.manager {
+    background-color: red;
+}
+
+.engineer {
+    background-color: blue;
+}
+
+.intern {
+    background-color: yellow;
+}

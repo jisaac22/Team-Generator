@@ -4,6 +4,7 @@ const fs = require('fs');
 const Manager = require('./Manager');
 const Engineer = require('./Engineer');
 const Intern = require('./Intern');
+const { async } = require('rxjs');
 const managerArray = []
 const internArray = []
 const engineerArray = []
@@ -15,20 +16,24 @@ const startingHtml = (
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="../style.css"/>
+        <link rel="stylesheet" href="./style.css"/>
         <title>Team Profile</title>
     </head>
     <body>
-      <header id="Team-profile">
+      <header class="header" id="Team-profile">
           <h1>Team Profile</h1>
       </header>
+      <div class="members">
     `
 )
+createFile()
 const endingHtml = (
-    `</body>
+    `</div>
+    </body>
     </html>
     `
 )
+   
 // prompt questions for Manager
 function questions() {
   inquirer.prompt([
@@ -57,18 +62,19 @@ function questions() {
          let manager = new Manager(data.name, data.id, data.email, data.OfficeNumber);
          managerArray.push(manager)
          let managerHTML = (
-             `
-             <div class="title">
+        `<div class="card">
+        <div class="title manager">
              <h2 class="name">${data.name}</h2>
-             <h3 class="role">${data.role}</h3>
+             <h3 class="role">Manager</h3>
          </div>
          <div class="information">
              <li class="id">ID: ${data.id}</li>
-             <li class="email" href="${data.email}">Email: ${data.email}</li>
+             <li class="email"> <a href="${data.email}">Email: ${data.email} </a></li>
              <li class="office">Office Number: ${data.OfficeNumber}</li>
-         </div>
-             `);
-             fs.appendFile('index.html', managerHTML, function (err, data){
+        </div>
+        </div>
+        `
+        ); fs.appendFile('index.html', managerHTML, function (err, data){
                 if (err) console.log('error', err)})
             nextMember()        
     })
@@ -79,9 +85,9 @@ function questions() {
     
 };
 // function to chooce next member
-    function nextMember(){
+   async function nextMember(){
         let choice = 
-        inquirer.prompt([
+        await inquirer.prompt([
             {
                 type: 'list',
                 message:'Which type of member would you like to add?',
@@ -118,18 +124,20 @@ function questions() {
                   var engineer = new Engineer(data.name, data.id, data.email, data.github);
                   engineerArray.push(engineer)
                   let engineerHtml = (
-                      `<div class="title">
+                `<div class="card">
+                <div class="title engineer">
                           <h2 class="name">${data.name}</h2>
-                          <h3 class="role">${data.role}</h3>
+                          <h3 class="role">Engineer</h3>
                       </div>
                       <div class="information">
                           <li class="id">ID: ${data.id}</li>
-                          <li class="email" href="${data.email}">Email: ${data.email}</li>
-                          <li class="github" href="${data.github}">Github: ${data.github}</li>
-                      </div>
-                      `
+                          <li class="email"><a href="${data.email}">Email: ${data.email} </a></li>
+                          <li class="github"><a href="${data.github}">Github: ${data.github}</a></li>
+                </div>
+                </div>
+                `
                   )
-                  fs.appendFileSync('index.html', engineerHtml, function (err, data){
+                  fs.appendFile('index.html', engineerHtml, function (err, data){
                     if (err) console.log('error', err)});
                   nextMember()
             })
@@ -164,18 +172,20 @@ function questions() {
                  var intern = new Intern(data.name, data.id, data.email, data.school);
                  internArray.push(intern)
                  let internHtml = (
-                     `<div class="title">
+                `<div class="card">
+                <div class="title intern">
                      <h2 class="name">${data.name}</h2>
-                     <h3 class="role">${data.role}</h3>
+                     <h3 class="role">Intern</h3>
                  </div>
                  <div class="information">
                      <li class="id">ID: ${data.id}</li>
-                     <li class="email" href="${data.email}}">Email: ${data.email}</li>
+                     <li class="email"><a href="${data.email}">Email: ${data.email} </a></li>
                      <li class="school">School: ${data.school}</li>
                  </div>
-                     `
+                 </div>
+                `
                  )
-                 fs.appendFileSync('index.html', internHtml, function (err, data){
+                 fs.appendFile('index.html', internHtml, function (err, data){
                     if (err) console.log('error', err)});
                     nextMember();
              })
@@ -184,12 +194,17 @@ function questions() {
              });
         }
 
-        else (createFile())
+        else (endFile())
 } 
 questions()
 
 function createFile(){
-    fs.writeFileSync('index.html', startingHtml, function (err, data){
+      fs.writeFile('index.html', startingHtml, function (err, data){
+     if (err) console.log('error', err)});
+}
+
+function endFile(){
+    fs.appendFile('index.html', endingHtml, function (err, data){
         if (err) console.log('error', err)});
 }
 
